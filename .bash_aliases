@@ -100,10 +100,10 @@ if [ $? -eq 0 ]; then \
   else \
     # @5 - Changes to working tree
     echo "'$IYellow$On_IRed$left_separator_main$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main'"; \
-  fi) '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off'"; \
+  fi) '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
 else \
   # @2 - Prompt when not in GIT repo
-  echo " '$Yellow$PathShort$Color_Off'\$ "; \
+  echo "'$IYellow$On_White$left_separator_main$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
 fi)'
 
 if [ -n "$TMUX" ]; then 
