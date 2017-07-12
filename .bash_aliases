@@ -103,7 +103,7 @@ if [ $? -eq 0 ]; then \
   fi) '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
 else \
   # @2 - Prompt when not in GIT repo
-  echo "'$IYellow$On_White$left_separator_main$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+  echo "'$IYellow$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
 fi)'
 
 if [ -n "$TMUX" ]; then 
