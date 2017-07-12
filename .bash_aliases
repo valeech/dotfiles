@@ -1,5 +1,4 @@
 #  Customize BASH PS1 prompt to show current GIT repository and branch.
-#  by Mike Stewart - http://MediaDoneRight.com
 
 #  SETUP CONSTANTS
 #  Bunch-o-predefined colors.  Makes reading code easier than escape sequences.
@@ -66,17 +65,17 @@ BIYellow="\[\033[1;93m\]"     # Yellow
 BIBlue="\[\033[1;94m\]"       # Blue
 BIPurple="\[\033[1;95m\]"     # Purple
 BICyan="\[\033[1;96m\]"       # Cyan
-BIWhite="\[\033[1;97m\]"      # White
+BIWhite="\[\033[97m\]"      # White
 
 # High Intensty backgrounds
 On_IBlack="\[\033[0;100m\]"   # Black
-On_IRed="\[\033[0;101m\]"     # Red
+On_IRed="\[\033[101m\]"     # Red
 On_IGreen="\[\033[0;102m\]"   # Green
 On_IYellow="\[\033[0;103m\]"  # Yellow
 On_IBlue="\[\033[0;104m\]"    # Blue
 On_IPurple="\[\033[10;95m\]"  # Purple
 On_ICyan="\[\033[0;106m\]"    # Cyan
-On_IWhite="\[\033[0;107m\]"   # White
+On_IWhite="\[\033[107m\]"   # White
 
 # Various variables you might want for your PS1 prompt instead
 Time12h="\T"
@@ -88,23 +87,44 @@ Jobs="\j"
 User="\u"
 Host="\h"
 
-
-# This PS1 snippet was adopted from code for MAC/BSD I saw from: http://allancraig.net/index.php?option=com_content&view=article&id=108:ps1-export-command-for-git&catid=45:general&Itemid=96
-# I tweaked it to work on UBUNTU 11.04 & 11.10 plus made it mo' better
+left_separator_main=''
 
 #export PS1=$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
-export PS1=$IPurple$User@$Host:$Color_Off'$(git branch &>/dev/null;\
+#export PS1=$IPurple$On_IYellow$User@$Host:$IYellow$On_Green$left_separator_main$Color_Off'$(git branch &>/dev/null;\
+export PS1=$IPurple$On_IYellow$User@$Host$Color_Off'$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
   if [ "$?" -eq "0" ]; then \
     # @4 - Clean repository - nothing to commit
-    echo "'$Green'"$(__git_ps1 " [%s]"); \
+    echo "'$IYellow$On_Green$left_separator_main$IWhite$On_Green' "$(__git_ps1 "%s")" '$Green$On_White$left_separator_main'"; \
   else \
     # @5 - Changes to working tree
-    echo "'$Red'"$(__git_ps1 " {%s}"); \
-  fi) '$BYellow$PathShort$Color_Off'\$ "; \
+    echo "'$IYellow$On_IRed$left_separator_main$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main'"; \
+  fi) '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off'"; \
 else \
   # @2 - Prompt when not in GIT repo
   echo " '$Yellow$PathShort$Color_Off'\$ "; \
 fi)'
+
+if [ -n "$TMUX" ]; then 
+
+export PS1=$Color_Off'$(git branch &>/dev/null;\
+ if [ $? -eq 0 ]; then \
+   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+   if [ "$?" -eq "0" ]; then \
+     # @4 - Clean repository - nothing to commit
+     echo "'$Green'"$(__git_ps1 " [%s]"); \
+   else \
+     # @5 - Changes to working tree
+     echo "'$Red'"$(__git_ps1 " {%s}"); \
+   fi) '$BYellow$PathShort$Color_Off'\$ "; \
+ else \
+   # @2 - Prompt when not in GIT repo
+   echo " '$Yellow$PathShort$Color_Off'\$ "; \
+ fi)'
+
+
+fi
+
+
 
