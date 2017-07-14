@@ -113,14 +113,14 @@ export PS1=$Color_Off'$(git branch &>/dev/null;\
    echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
    if [ "$?" -eq "0" ]; then \
      # @4 - Clean repository - nothing to commit
-     echo "'$Green'"$(__git_ps1 " [%s]"); \
+     echo "'$IWhite$On_IGreen' "$(__git_ps1 "%s")" '$IGreen$On_White$left_separator_main'"; \
    else \
      # @5 - Changes to working tree
-     echo "'$Red'"$(__git_ps1 " {%s}"); \
-   fi) '$BYellow$PathShort$Color_Off'\$ "; \
+     echo "'$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main'"; \
+   fi) '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
  else \
    # @2 - Prompt when not in GIT repo
-   echo " '$Yellow$PathShort$Color_Off'\$ "; \
+   echo "'$BYellow$On_White' '$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
  fi)'
 
 
