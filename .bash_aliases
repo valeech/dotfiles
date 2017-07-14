@@ -120,6 +120,7 @@ export PS1=$Color_Off'$(git branch &>/dev/null;\
    fi) '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
  else \
    # @2 - Prompt when not in GIT repo
+   #foo
    echo "'$BYellow$On_White' '$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
  fi)'
 
