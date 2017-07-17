@@ -77,6 +77,9 @@ On_IPurple="\[\033[10;95m\]"  # Purple
 On_ICyan="\[\033[0;106m\]"    # Cyan
 On_IWhite="\[\033[107m\]"   # White
 
+BlinkOn="\[\x1b[5m\]"
+BlinkOff="\[\x1b[25m\]"
+
 # Various variables you might want for your PS1 prompt instead
 Time12h="\T"
 Time12a="\@"
@@ -108,24 +111,22 @@ fi)'
 
 if [ -n "$TMUX" ]; then 
 
-export PS1=$Color_Off'$(git branch &>/dev/null;\
+ export PS1=$Color_Off'$(git branch &>/dev/null;\
  if [ $? -eq 0 ]; then \
-   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
-   if [ "$?" -eq "0" ]; then \
-     # @4 - Clean repository - nothing to commit
-     echo "'$IWhite$On_IGreen' "$(__git_ps1 "%s")" '$IGreen$On_White$left_separator_main'"; \
+   git status | grep "nothing to commit" > /dev/null 2>&1; \
+   if [ $? -eq 0 ]; then \
+     git status | grep "branch is ahead" > /dev/null 2>&1; \
+     if [ $? -eq 0 ]; then \
+       echo -e "'$IWhite$On_IGreen$BlinkOn' '$BlinkOff'"$(__git_ps1 "%s")" '$IGreen$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+     else \
+       echo "'$IWhite$On_IGreen' "$(__git_ps1 "%s")" '$IGreen$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+     fi \
    else \
-     # @5 - Changes to working tree
-     echo "'$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main'"; \
-   fi) '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+     echo "'$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+   fi \
  else \
-   # @2 - Prompt when not in GIT repo
-   #foo
    echo "'$BYellow$On_White' '$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
  fi)'
 
-
 fi
-
-
 
