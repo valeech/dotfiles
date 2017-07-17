@@ -95,31 +95,34 @@ left_separator_main=''
 #export PS1=$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
 #export PS1=$IPurple$On_IYellow$User@$Host:$IYellow$On_Green$left_separator_main$Color_Off'$(git branch &>/dev/null;\
 export PS1=$IPurple$On_IYellow$User@$Host$Color_Off'$(git branch &>/dev/null;\
-if [ $? -eq 0 ]; then \
-  echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
-  if [ "$?" -eq "0" ]; then \
-    # @4 - Clean repository - nothing to commit
-    echo "'$IYellow$On_Green$left_separator_main$IWhite$On_Green' "$(__git_ps1 "%s")" '$Green$On_White$left_separator_main'"; \
-  else \
-    # @5 - Changes to working tree
-    echo "'$IYellow$On_IRed$left_separator_main$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main'"; \
-  fi) '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
-else \
-  # @2 - Prompt when not in GIT repo
-  echo "'$IYellow$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
-fi)'
+ if [ $? -eq 0 ]; then \
+   git status | grep "nothing to commit" > /dev/null 2>&1; \
+   if [ $? -eq 0 ]; then \
+     git status | grep "branch is ahead" > /dev/null 2>&1; \
+     if [ $? -eq 0 ]; then \
+       echo -e "'$IWhite$On_Green$BlinkOn' '$BlinkOff'"$(__git_ps1 "%s")" '$Green$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+     else \
+       echo "'$IWhite$On_Green' "$(__git_ps1 "%s")" '$Green$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+     fi \
+   else \
+     echo "'$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+   fi \
+ else \
+   echo "'$BYellow$On_White' '$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+ fi)' \
+fi
+
 
 if [ -n "$TMUX" ]; then 
-
  export PS1=$Color_Off'$(git branch &>/dev/null;\
  if [ $? -eq 0 ]; then \
    git status | grep "nothing to commit" > /dev/null 2>&1; \
    if [ $? -eq 0 ]; then \
      git status | grep "branch is ahead" > /dev/null 2>&1; \
      if [ $? -eq 0 ]; then \
-       echo -e "'$IWhite$On_IGreen$BlinkOn' '$BlinkOff'"$(__git_ps1 "%s")" '$IGreen$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+       echo -e "'$IWhite$On_Green$BlinkOn' '$BlinkOff'"$(__git_ps1 "%s")" '$Green$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
      else \
-       echo "'$IWhite$On_IGreen' "$(__git_ps1 "%s")" '$IGreen$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+       echo "'$IWhite$On_Green' "$(__git_ps1 "%s")" '$Green$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
      fi \
    else \
      echo "'$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
@@ -127,6 +130,5 @@ if [ -n "$TMUX" ]; then
  else \
    echo "'$BYellow$On_White' '$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
  fi)'
-
 fi
 
