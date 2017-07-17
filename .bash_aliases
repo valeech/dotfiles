@@ -92,8 +92,6 @@ Host="\h"
 
 left_separator_main=''
 
-#export PS1=$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
-#export PS1=$IPurple$On_IYellow$User@$Host:$IYellow$On_Green$left_separator_main$Color_Off'$(git branch &>/dev/null;\
 export PS1=$IPurple$On_IYellow$User@$Host$Color_Off'$(git branch &>/dev/null;\
  if [ $? -eq 0 ]; then \
    git status | grep "nothing to commit" > /dev/null 2>&1; \
