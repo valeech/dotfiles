@@ -98,15 +98,15 @@ export PS1=$IPurple$On_IYellow$User@$Host$Color_Off'$(git branch &>/dev/null;\
    if [ $? -eq 0 ]; then \
      git status | grep "branch is ahead" > /dev/null 2>&1; \
      if [ $? -eq 0 ]; then \
-       echo -e "'$IWhite$On_Green$BlinkOn' '$BlinkOff'"$(__git_ps1 "%s")" '$Green$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+       echo -e "'$IYellow$On_Green$left_separator_main$IWhite$On_Green$BlinkOn' '$BlinkOff'"$(__git_ps1 "%s")" '$Green$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
      else \
-       echo "'$IWhite$On_Green' "$(__git_ps1 "%s")" '$Green$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+       echo "'$IYellow$On_Green$left_separator_main$IWhite$On_Green' "$(__git_ps1 "%s")" '$Green$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
      fi \
    else \
-     echo "'$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+     echo "'$IYellow$On_IRed$left_separator_main$IWhite$On_IRed' "$(__git_ps1 "%s")" '$IRed$On_White$left_separator_main' '$BYellow$On_White$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
    fi \
  else \
-   echo "'$BYellow$On_White' '$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
+   echo "'$IYellow$On_White$left_separator_main$BYellow$On_White' '$PathShort' '$White$On_Black$left_separator_main$Color_Off' "; \
  fi)' \
 fi
 
