@@ -1,3 +1,5 @@
+source ./.bash_git
+
 #  Customize BASH PS1 prompt to show current GIT repository and branch.
 
 #  SETUP CONSTANTS
